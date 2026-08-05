@@ -61,8 +61,12 @@ function Dashboard() {
 
   const { accounts, totalBalance, isLoading: loadingAccounts } = useAccounts();
   const monthKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
-  const { transactions, monthIncome, monthExpense, isLoading: loadingTx } =
-    useTransactions(monthKey);
+  const {
+    transactions,
+    monthIncome,
+    monthExpense,
+    isLoading: loadingTx,
+  } = useTransactions(monthKey);
   const { categories } = useCategories();
   const { currentMonthTotal } = useCommitments(year);
 
@@ -87,18 +91,26 @@ function Dashboard() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">{greeting()}!</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Este é o resumo das suas finanças.
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">Este é o resumo das suas finanças.</p>
         </div>
         <div className="flex items-center gap-1 rounded-xl border border-border bg-card px-1 py-1 shadow-soft">
-          <Button variant="ghost" size="icon" onClick={() => shiftMonth(-1)} aria-label="Mês anterior">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => shiftMonth(-1)}
+            aria-label="Mês anterior"
+          >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <span className="min-w-[140px] text-center text-sm font-medium">
             {MONTHS_LONG[monthIndex]} {year}
           </span>
-          <Button variant="ghost" size="icon" onClick={() => shiftMonth(1)} aria-label="Próximo mês">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => shiftMonth(1)}
+            aria-label="Próximo mês"
+          >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -119,8 +131,18 @@ function Dashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <SummaryCard title="Receitas do mês" value={monthIncome} icon={ArrowUpCircle} tone="income" />
-        <SummaryCard title="Despesas do mês" value={monthExpense} icon={ArrowDownCircle} tone="expense" />
+        <SummaryCard
+          title="Receitas do mês"
+          value={monthIncome}
+          icon={ArrowUpCircle}
+          tone="income"
+        />
+        <SummaryCard
+          title="Despesas do mês"
+          value={monthExpense}
+          icon={ArrowDownCircle}
+          tone="expense"
+        />
         <SummaryCard
           title="Comprometido este mês"
           value={currentMonthTotal}

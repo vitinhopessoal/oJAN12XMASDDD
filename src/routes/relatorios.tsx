@@ -18,7 +18,11 @@ export const Route = createFileRoute("/relatorios")({
 function ReportsPage() {
   return (
     <div className="space-y-6">
-      <PageHeader title="Relatórios" description="Análises de gastos e evolução do saldo." icon={PieChart} />
+      <PageHeader
+        title="Relatórios"
+        description="Análises de gastos e evolução do saldo."
+        icon={PieChart}
+      />
       <EmptyState
         icon={PieChart}
         title="Relatórios em breve"

@@ -21,7 +21,10 @@ export const Route = createFileRoute("/transacoes")({
   head: () => ({
     meta: [
       { title: "Transações — Meu Bolso" },
-      { name: "description", content: "Filtre receitas e despesas por mês, conta, categoria e tipo." },
+      {
+        name: "description",
+        content: "Filtre receitas e despesas por mês, conta, categoria e tipo.",
+      },
       { property: "og:title", content: "Transações — Meu Bolso" },
       { property: "og:description", content: "Todas as suas movimentações em um só lugar." },
     ],
@@ -65,37 +68,51 @@ function TransactionsPage() {
 
       <div className="grid gap-3 rounded-2xl border border-border bg-card p-4 shadow-soft sm:grid-cols-2 lg:grid-cols-4">
         <Select value={month} onValueChange={setMonth}>
-          <SelectTrigger><SelectValue placeholder="Mês" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Mês" />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos os meses</SelectItem>
             {MONTHS_LONG.map((m, i) => (
-              <SelectItem key={m} value={String(i)}>{m}</SelectItem>
+              <SelectItem key={m} value={String(i)}>
+                {m}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
         <Select value={accountId} onValueChange={setAccountId}>
-          <SelectTrigger><SelectValue placeholder="Conta" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Conta" />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todas as contas</SelectItem>
             {accounts.map((a) => (
-              <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>
+              <SelectItem key={a.id} value={a.id}>
+                {a.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
         <Select value={categoryId} onValueChange={setCategoryId}>
-          <SelectTrigger><SelectValue placeholder="Categoria" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Categoria" />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todas as categorias</SelectItem>
             {categories.map((c) => (
-              <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              <SelectItem key={c.id} value={c.id}>
+                {c.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
         <Select value={type} onValueChange={setType}>
-          <SelectTrigger><SelectValue placeholder="Tipo" /></SelectTrigger>
+          <SelectTrigger>
+            <SelectValue placeholder="Tipo" />
+          </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Receitas e despesas</SelectItem>
             <SelectItem value="INCOME">Receitas</SelectItem>

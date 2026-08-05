@@ -31,13 +31,7 @@ export function SummaryCard({
 }: SummaryCardProps) {
   const t = tones[tone];
   return (
-    <div
-      className={cn(
-        "rounded-2xl border border-border p-5 shadow-soft",
-        t.wrap,
-        className,
-      )}
-    >
+    <div className={cn("rounded-2xl border border-border p-5 shadow-soft", t.wrap, className)}>
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm text-muted-foreground">{title}</p>
         <span className={cn("flex h-9 w-9 items-center justify-center rounded-xl", t.icon)}>
