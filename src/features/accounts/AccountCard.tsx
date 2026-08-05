@@ -8,7 +8,15 @@ const typeLabel: Record<BankAccount["type"], string> = {
   CASH: "Dinheiro",
 };
 
-export function AccountCard({ account, className }: { account: BankAccount; className?: string }) {
+export function AccountCard({
+  account,
+  className,
+  actions,
+}: {
+  account: BankAccount;
+  className?: string;
+  actions?: React.ReactNode;
+}) {
   return (
     <div
       className={cn(
@@ -21,6 +29,7 @@ export function AccountCard({ account, className }: { account: BankAccount; clas
         style={{ backgroundColor: account.color }}
         aria-hidden
       />
+      {actions ? <div className="absolute right-2 top-3">{actions}</div> : null}
       <div className="flex items-center gap-2">
         <span
           className="h-2.5 w-2.5 rounded-full"
