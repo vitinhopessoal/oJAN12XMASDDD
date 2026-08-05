@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlanejamentoRouteImport } from './routes/planejamento'
+import { Route as TransacoesRouteImport } from './routes/transacoes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const PlanejamentoRoute = PlanejamentoRouteImport.update({
   path: '/planejamento',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TransacoesRoute = TransacoesRouteImport.update({
+  id: '/transacoes',
+  path: '/transacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/planejamento': typeof PlanejamentoRoute
+  '/transacoes': typeof TransacoesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/planejamento': typeof PlanejamentoRoute
+  '/transacoes': typeof TransacoesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/planejamento': typeof PlanejamentoRoute
+  '/transacoes': typeof TransacoesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/planejamento'
+  fullPaths: '/' | '/planejamento' | '/transacoes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/planejamento'
-  id: '__root__' | '/' | '/planejamento'
+  to: '/' | '/planejamento' | '/transacoes'
+  id: '__root__' | '/' | '/planejamento' | '/transacoes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PlanejamentoRoute: typeof PlanejamentoRoute
+  TransacoesRoute: typeof TransacoesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanejamentoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/transacoes': {
+      id: '/transacoes'
+      path: '/transacoes'
+      fullPath: '/transacoes'
+      preLoaderRoute: typeof TransacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PlanejamentoRoute: PlanejamentoRoute,
+  TransacoesRoute: TransacoesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

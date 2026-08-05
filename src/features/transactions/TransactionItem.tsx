@@ -5,8 +5,8 @@ import type { BankAccount, Category, Transaction } from "@/types";
 
 interface TransactionItemProps {
   transaction: Transaction;
-  category?: Category;
-  account?: BankAccount;
+  category: Category | undefined;
+  account: BankAccount | undefined;
 }
 
 export function TransactionItem({ transaction, category, account }: TransactionItemProps) {
