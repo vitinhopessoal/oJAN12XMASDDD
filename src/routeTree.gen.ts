@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContasRouteImport } from './routes/contas'
 import { Route as PlanejamentoRouteImport } from './routes/planejamento'
 import { Route as TransacoesRouteImport } from './routes/transacoes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContasRoute = ContasRouteImport.update({
+  id: '/contas',
+  path: '/contas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanejamentoRoute = PlanejamentoRouteImport.update({
@@ -31,30 +37,34 @@ const TransacoesRoute = TransacoesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
   '/planejamento': typeof PlanejamentoRoute
   '/transacoes': typeof TransacoesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
   '/planejamento': typeof PlanejamentoRoute
   '/transacoes': typeof TransacoesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
   '/planejamento': typeof PlanejamentoRoute
   '/transacoes': typeof TransacoesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/planejamento' | '/transacoes'
+  fullPaths: '/' | '/contas' | '/planejamento' | '/transacoes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/planejamento' | '/transacoes'
-  id: '__root__' | '/' | '/planejamento' | '/transacoes'
+  to: '/' | '/contas' | '/planejamento' | '/transacoes'
+  id: '__root__' | '/' | '/contas' | '/planejamento' | '/transacoes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContasRoute: typeof ContasRoute
   PlanejamentoRoute: typeof PlanejamentoRoute
   TransacoesRoute: typeof TransacoesRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contas': {
+      id: '/contas'
+      path: '/contas'
+      fullPath: '/contas'
+      preLoaderRoute: typeof ContasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planejamento': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContasRoute: ContasRoute,
   PlanejamentoRoute: PlanejamentoRoute,
   TransacoesRoute: TransacoesRoute,
 }
