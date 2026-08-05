@@ -3,6 +3,7 @@ import { Eye, EyeOff, Menu, PiggyBank } from "lucide-react";
 import { SidebarNav } from "./SidebarNav";
 import { useAppSettings } from "@/hooks/useAppSettings";
 import { Button } from "@/components/ui/button";
+import { ConnectionBanner } from "./ConnectionBanner";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -45,6 +46,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             {hidden ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </Button>
         </header>
+
+        <ConnectionBanner />
 
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">{children}</main>
       </div>

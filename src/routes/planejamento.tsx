@@ -6,6 +6,7 @@ import { PlanningGrid } from "@/features/planning/PlanningGrid";
 import { SummaryCard } from "@/features/dashboard/SummaryCard";
 import { useCommitments } from "@/hooks/useCommitments";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
@@ -43,8 +44,15 @@ export const Route = createFileRoute("/planejamento")({
 
 function PlanningPage() {
   const [year, setYear] = useState(new Date().getFullYear());
-  const { commitments, matrix, monthTotals, currentMonthTotal, nextMonthTotal, futureAverage } =
-    useCommitments(year);
+  const {
+    commitments,
+    matrix,
+    monthTotals,
+    currentMonthTotal,
+    nextMonthTotal,
+    futureAverage,
+    isLoading,
+  } = useCommitments(year);
 
   const years = [year - 1, year, year + 1];
 
@@ -112,12 +120,16 @@ function PlanningPage() {
         />
       </div>
 
-      <PlanningGrid
-        commitments={commitments}
-        matrix={matrix}
-        monthTotals={monthTotals}
-        year={year}
-      />
+      {isLoading ? (
+        <Skeleton className="h-[320px] rounded-2xl" />
+      ) : (
+        <PlanningGrid
+          commitments={commitments}
+          matrix={matrix}
+          monthTotals={monthTotals}
+          year={year}
+        />
+      )}
     </div>
   );
 }

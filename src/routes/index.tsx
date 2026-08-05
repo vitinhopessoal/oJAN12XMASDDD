@@ -27,6 +27,7 @@ import { AccountCard } from "@/features/accounts/AccountCard";
 import { SummaryCard } from "@/features/dashboard/SummaryCard";
 import { TransactionItem } from "@/features/transactions/TransactionItem";
 import { CurrencyText } from "@/components/ui/currency-text";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAccounts } from "@/hooks/useAccounts";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useCategories } from "@/hooks/useCategories";
@@ -58,8 +59,10 @@ function Dashboard() {
   const [year, setYear] = useState(today.getFullYear());
   const [dialogTitle, setDialogTitle] = useState<string | null>(null);
 
-  const { accounts, totalBalance } = useAccounts();
-  const { transactions, monthIncome, monthExpense } = useTransactions();
+  const { accounts, totalBalance, isLoading: loadingAccounts } = useAccounts();
+  const monthKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
+  const { transactions, monthIncome, monthExpense, isLoading: loadingTx } =
+    useTransactions(monthKey);
   const { categories } = useCategories();
   const { currentMonthTotal } = useCommitments(year);
 
@@ -108,9 +111,11 @@ function Dashboard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {accounts.map((a) => (
-          <AccountCard key={a.id} account={a} />
-        ))}
+        {loadingAccounts
+          ? Array.from({ length: 3 }, (_, i) => (
+              <Skeleton key={i} className="h-[132px] rounded-2xl" />
+            ))
+          : accounts.map((a) => <AccountCard key={a.id} account={a} />)}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -130,7 +135,17 @@ function Dashboard() {
           <Wallet className="h-4 w-4 text-muted-foreground" />
           <h2 className="text-sm font-semibold">Últimas transações</h2>
         </div>
-        {transactions.slice(0, 8).map((t) => (
+        {loadingTx
+          ? Array.from({ length: 5 }, (_, i) => (
+              <Skeleton key={i} className="my-3 h-10 rounded-xl" />
+            ))
+          : null}
+        {!loadingTx && transactions.length === 0 ? (
+          <p className="py-6 text-center text-sm text-muted-foreground">
+            Nenhuma transação neste mês.
+          </p>
+        ) : null}
+        {(loadingTx ? [] : transactions.slice(0, 8)).map((t) => (
           <TransactionItem
             key={t.id}
             transaction={t}

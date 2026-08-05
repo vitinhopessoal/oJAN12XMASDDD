@@ -1,4 +1,6 @@
-import { mockCommitments } from "@/mocks/data";
+import { useQuery } from "@tanstack/react-query";
+
+import { isBrowser, mapCommitment, pb } from "@/lib/pocketbase";
 import { parseMonthKey } from "@/lib/utils";
 import type { Commitment } from "@/types";
 
@@ -24,7 +26,11 @@ export function commitmentValueAt(
   }
 }
 
-// MOCK: será substituído pelo PocketBase.
+async function fetchCommitments(): Promise<Commitment[]> {
+  const records = await pb.collection("commitments").getFullList({ sort: "startMonth" });
+  return records.map(mapCommitment);
+}
+
 export function useCommitments(year: number): {
   commitments: Commitment[];
   matrix: number[][];
@@ -32,8 +38,16 @@ export function useCommitments(year: number): {
   currentMonthTotal: number;
   nextMonthTotal: number;
   futureAverage: number;
+  isLoading: boolean;
+  error: Error | null;
 } {
-  const commitments = mockCommitments;
+  const query = useQuery({
+    queryKey: ["commitments"],
+    queryFn: fetchCommitments,
+    enabled: isBrowser,
+  });
+
+  const commitments = query.data ?? [];
   const matrix = commitments.map((c) =>
     Array.from({ length: 12 }, (_, m) => commitmentValueAt(c, year, m)),
   );
@@ -57,5 +71,7 @@ export function useCommitments(year: number): {
     currentMonthTotal,
     nextMonthTotal,
     futureAverage,
+    isLoading: query.isLoading,
+    error: query.error as Error | null,
   };
 }
