@@ -8,6 +8,7 @@ import { useTransactions } from "@/hooks/useTransactions";
 import { useAccounts } from "@/hooks/useAccounts";
 import { useCategories } from "@/hooks/useCategories";
 import { MONTHS_LONG } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
   SelectContent,
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/transacoes")({
 });
 
 function TransactionsPage() {
-  const { transactions } = useTransactions();
+  const { transactions, isLoading } = useTransactions();
   const { accounts } = useAccounts();
   const { categories } = useCategories();
 
@@ -103,7 +104,13 @@ function TransactionsPage() {
         </Select>
       </div>
 
-      {filtered.length === 0 ? (
+      {isLoading ? (
+        <div className="space-y-3 rounded-2xl border border-border bg-card p-5 shadow-soft">
+          {Array.from({ length: 6 }, (_, i) => (
+            <Skeleton key={i} className="h-10 rounded-xl" />
+          ))}
+        </div>
+      ) : filtered.length === 0 ? (
         <EmptyState
           icon={SearchX}
           title="Nenhuma transação encontrada"
