@@ -28,9 +28,15 @@ export const Route = createFileRoute("/categorias")({
   head: () => ({
     meta: [
       { title: "Categorias — Meu Bolso" },
-      { name: "description", content: "Organize receitas e despesas por categorias personalizadas." },
+      {
+        name: "description",
+        content: "Organize receitas e despesas por categorias personalizadas.",
+      },
       { property: "og:title", content: "Categorias — Meu Bolso" },
-      { property: "og:description", content: "Categorias de receitas e despesas do seu orçamento." },
+      {
+        property: "og:description",
+        content: "Categorias de receitas e despesas do seu orçamento.",
+      },
     ],
   }),
   component: CategoriesPage,
@@ -66,7 +72,9 @@ function CategoriesPage() {
       return (
         <EmptyState
           icon={Tags}
-          title={type === "EXPENSE" ? "Nenhuma categoria de despesa" : "Nenhuma categoria de receita"}
+          title={
+            type === "EXPENSE" ? "Nenhuma categoria de despesa" : "Nenhuma categoria de receita"
+          }
           description="Crie categorias para classificar suas movimentações."
           action={
             <Button onClick={openCreate}>
@@ -136,7 +144,10 @@ function CategoriesPage() {
         defaultType={tab}
       />
 
-      <AlertDialog open={Boolean(toDelete)} onOpenChange={(open) => !open && setToDelete(undefined)}>
+      <AlertDialog
+        open={Boolean(toDelete)}
+        onOpenChange={(open) => !open && setToDelete(undefined)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir a categoria {toDelete?.name}?</AlertDialogTitle>

@@ -27,7 +27,10 @@ export const Route = createFileRoute("/contas")({
   head: () => ({
     meta: [
       { title: "Contas — Meu Bolso" },
-      { name: "description", content: "Gerencie contas correntes, investimentos e dinheiro em espécie." },
+      {
+        name: "description",
+        content: "Gerencie contas correntes, investimentos e dinheiro em espécie.",
+      },
       { property: "og:title", content: "Contas — Meu Bolso" },
       { property: "og:description", content: "Suas contas bancárias e saldos reunidos." },
     ],
@@ -104,7 +107,10 @@ function AccountsPage() {
 
       <AccountFormDialog open={formOpen} onOpenChange={setFormOpen} account={editing} />
 
-      <AlertDialog open={Boolean(toDelete)} onOpenChange={(open) => !open && setToDelete(undefined)}>
+      <AlertDialog
+        open={Boolean(toDelete)}
+        onOpenChange={(open) => !open && setToDelete(undefined)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir a conta {toDelete?.name}?</AlertDialogTitle>

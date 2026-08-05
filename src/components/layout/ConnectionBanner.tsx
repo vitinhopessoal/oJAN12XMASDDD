@@ -22,9 +22,10 @@ export function ConnectionBanner() {
   });
 
   useEffect(() => {
-    if (isSuccess) void ensureDefaultCategories().then(() => {
-      void queryClient.invalidateQueries({ queryKey: ["categories"] });
-    });
+    if (isSuccess)
+      void ensureDefaultCategories().then(() => {
+        void queryClient.invalidateQueries({ queryKey: ["categories"] });
+      });
   }, [isSuccess, queryClient]);
 
   if (!isError) return null;

@@ -73,7 +73,10 @@ export function CategoryFormDialog({
 
   const onSubmit = (values: FormValues) => {
     if (category) {
-      update.mutate({ id: category.id, data: { ...values } }, { onSuccess: () => onOpenChange(false) });
+      update.mutate(
+        { id: category.id, data: { ...values } },
+        { onSuccess: () => onOpenChange(false) },
+      );
     } else {
       create.mutate({ ...values }, { onSuccess: () => onOpenChange(false) });
     }

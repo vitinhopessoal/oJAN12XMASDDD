@@ -91,9 +91,7 @@ export function AccountFormDialog({ open, onOpenChange, account }: AccountFormDi
       <DialogContent className="max-h-[90dvh] w-[calc(100vw-1.5rem)] max-w-md overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle>{account ? "Editar conta" : "Nova conta"}</DialogTitle>
-          <DialogDescription>
-            Cadastre suas contas para acompanhar os saldos.
-          </DialogDescription>
+          <DialogDescription>Cadastre suas contas para acompanhar os saldos.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -139,7 +137,11 @@ export function AccountFormDialog({ open, onOpenChange, account }: AccountFormDi
                 <FormItem>
                   <FormLabel>Saldo inicial</FormLabel>
                   <FormControl>
-                    <CurrencyInput value={field.value} onChange={field.onChange} onBlur={field.onBlur} />
+                    <CurrencyInput
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
