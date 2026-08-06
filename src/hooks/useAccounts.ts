@@ -10,7 +10,7 @@ async function fetchAccounts(): Promise<BankAccount[]> {
 
 async function fetchAllTransactions(): Promise<Transaction[]> {
   const records = await pb.collection("transactions").getFullList({ sort: "-date" });
-  return records.map(mapTransaction);
+  return records.map(mapTransaction).filter((t) => !t.needsReview);
 }
 
 export function useAccounts(): {
