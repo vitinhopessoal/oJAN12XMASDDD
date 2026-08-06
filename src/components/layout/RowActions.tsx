@@ -7,13 +7,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+interface ExtraItem {
+  label: string;
+  onSelect: () => void;
+}
+
 interface RowActionsProps {
   onEdit: () => void;
   onDelete: () => void;
   label: string;
+  extraItems?: ExtraItem[];
 }
 
-export function RowActions({ onEdit, onDelete, label }: RowActionsProps) {
+export function RowActions({ onEdit, onDelete, label, extraItems }: RowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -27,6 +33,11 @@ export function RowActions({ onEdit, onDelete, label }: RowActionsProps) {
           <Pencil className="mr-2 h-4 w-4" />
           Editar
         </DropdownMenuItem>
+        {extraItems?.map((item) => (
+          <DropdownMenuItem key={item.label} onSelect={item.onSelect}>
+            {item.label}
+          </DropdownMenuItem>
+        ))}
         <DropdownMenuItem onSelect={onDelete} className="text-destructive focus:text-destructive">
           <Trash2 className="mr-2 h-4 w-4" />
           Excluir
