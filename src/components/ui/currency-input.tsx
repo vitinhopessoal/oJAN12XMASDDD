@@ -11,6 +11,7 @@ interface CurrencyInputProps {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  inputClassName?: string;
 }
 
 function formatFromCents(cents: number): string {
