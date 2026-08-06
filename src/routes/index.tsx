@@ -4,8 +4,6 @@ import {
   ArrowDownCircle,
   ArrowUpCircle,
   CalendarClock,
-  ChevronLeft,
-  ChevronRight,
   Plus,
   Wallet,
 } from "lucide-react";
@@ -16,23 +14,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { AccountCard } from "@/features/accounts/AccountCard";
 import { SummaryCard } from "@/features/dashboard/SummaryCard";
 import { TransactionItem } from "@/features/transactions/TransactionItem";
+import { TransactionFormDialog } from "@/features/transactions/TransactionFormDialog";
+import { MonthSelector } from "@/components/layout/MonthSelector";
 import { CurrencyText } from "@/components/ui/currency-text";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAccounts } from "@/hooks/useAccounts";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useCategories } from "@/hooks/useCategories";
 import { useCommitments } from "@/hooks/useCommitments";
-import { greeting, MONTHS_LONG } from "@/lib/utils";
+import { formatCurrency, greeting } from "@/lib/utils";
+import type { MovementType } from "@/types";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -57,7 +51,7 @@ function Dashboard() {
   const today = new Date();
   const [monthIndex, setMonthIndex] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
-  const [dialogTitle, setDialogTitle] = useState<string | null>(null);
+  const [formType, setFormType] = useState<MovementType | null>(null);
 
   const { accounts, totalBalance, isLoading: loadingAccounts } = useAccounts();
   const monthKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}`;
@@ -73,18 +67,9 @@ function Dashboard() {
   const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c]));
   const accountMap = Object.fromEntries(accounts.map((a) => [a.id, a]));
 
-  const shiftMonth = (delta: number) => {
-    const next = monthIndex + delta;
-    if (next < 0) {
-      setMonthIndex(11);
-      setYear((y) => y - 1);
-    } else if (next > 11) {
-      setMonthIndex(0);
-      setYear((y) => y + 1);
-    } else {
-      setMonthIndex(next);
-    }
-  };
+  const pendingExpense = transactions
+    .filter((t) => t.type === "EXPENSE" && t.status === "PENDING")
+    .reduce((sum, t) => sum + t.value, 0);
 
   return (
     <div className="space-y-6 pb-24">
@@ -93,27 +78,14 @@ function Dashboard() {
           <h1 className="text-2xl font-semibold tracking-tight">{greeting()}!</h1>
           <p className="mt-1 text-sm text-muted-foreground">Este é o resumo das suas finanças.</p>
         </div>
-        <div className="flex items-center gap-1 rounded-xl border border-border bg-card px-1 py-1 shadow-soft">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => shiftMonth(-1)}
-            aria-label="Mês anterior"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="min-w-[140px] text-center text-sm font-medium">
-            {MONTHS_LONG[monthIndex]} {year}
-          </span>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => shiftMonth(1)}
-            aria-label="Próximo mês"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
+        <MonthSelector
+          monthIndex={monthIndex}
+          year={year}
+          onChange={(m, y) => {
+            setMonthIndex(m);
+            setYear(y);
+          }}
+        />
       </div>
 
       <div className="rounded-2xl border border-border bg-primary p-6 text-primary-foreground shadow-soft">
@@ -140,6 +112,9 @@ function Dashboard() {
         <SummaryCard
           title="Despesas do mês"
           value={monthExpense}
+          {...(pendingExpense > 0
+            ? { subtitle: `${formatCurrency(pendingExpense)} ainda pendente` }
+            : {})}
           icon={ArrowDownCircle}
           tone="expense"
         />
@@ -188,25 +163,22 @@ function Dashboard() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" side="top">
-          <DropdownMenuItem onSelect={() => setDialogTitle("Nova receita")}>
+          <DropdownMenuItem onSelect={() => setFormType("INCOME")}>
             <ArrowUpCircle className="h-4 w-4 text-income" /> Nova receita
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => setDialogTitle("Nova despesa")}>
+          <DropdownMenuItem onSelect={() => setFormType("EXPENSE")}>
             <ArrowDownCircle className="h-4 w-4 text-expense" /> Nova despesa
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={dialogTitle !== null} onOpenChange={(open) => !open && setDialogTitle(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{dialogTitle ?? ""}</DialogTitle>
-            <DialogDescription>
-              O formulário será habilitado quando a persistência estiver conectada.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      {formType ? (
+        <TransactionFormDialog
+          open
+          onOpenChange={(open) => !open && setFormType(null)}
+          type={formType}
+        />
+      ) : null}
     </div>
   );
 }
