@@ -56,7 +56,7 @@ function Dashboard() {
     isLoading: loadingTx,
   } = useTransactions(monthKey);
   const { categories } = useCategories();
-  const { currentMonthTotal } = useCommitments(year);
+  const { currentMonthTotal, currentMonthOpen } = useCommitments(year);
 
   const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c]));
   const accountMap = Object.fromEntries(accounts.map((a) => [a.id, a]));
@@ -115,7 +115,11 @@ function Dashboard() {
         <SummaryCard
           title="Comprometido este mês"
           value={currentMonthTotal}
-          subtitle="de gastos fixos e parcelas"
+          subtitle={
+            currentMonthTotal > 0 && currentMonthOpen <= 0
+              ? "tudo pago ✓"
+              : `${formatCurrency(currentMonthOpen)} ainda em aberto`
+          }
           icon={CalendarClock}
           tone="pending"
         />
