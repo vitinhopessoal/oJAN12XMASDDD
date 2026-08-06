@@ -67,6 +67,7 @@ function Dashboard() {
   } = useTransactions(monthKey);
   const { categories } = useCategories();
   const { currentMonthTotal, currentMonthOpen } = useCommitments(year);
+  const { count: inboxCount } = useInbox();
   const { totalInvested, contributedThisMonth } = useGoals();
 
   const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c]));
