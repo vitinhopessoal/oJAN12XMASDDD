@@ -27,6 +27,10 @@ export interface Transaction {
   status: TransactionStatus;
   bankAccountId: string;
   categoryId: string;
+  /** Capturada automaticamente e ainda não revisada. */
+  needsReview?: boolean;
+  /** Texto cru da notificação do banco. */
+  rawText?: string;
 }
 
 export interface Commitment {
