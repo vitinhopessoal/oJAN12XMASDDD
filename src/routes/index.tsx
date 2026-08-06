@@ -29,6 +29,7 @@ import { useTransactions } from "@/hooks/useTransactions";
 import { useCategories } from "@/hooks/useCategories";
 import { useCommitments } from "@/hooks/useCommitments";
 import { useGoals } from "@/hooks/useGoals";
+import { useInbox } from "@/hooks/useInbox";
 import { formatCurrency, greeting } from "@/lib/utils";
 import type { MovementType } from "@/types";
 
