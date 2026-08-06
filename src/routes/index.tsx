@@ -26,6 +26,7 @@ import { useAccounts } from "@/hooks/useAccounts";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useCategories } from "@/hooks/useCategories";
 import { useCommitments } from "@/hooks/useCommitments";
+import { useGoals } from "@/hooks/useGoals";
 import { formatCurrency, greeting } from "@/lib/utils";
 import type { MovementType } from "@/types";
 
