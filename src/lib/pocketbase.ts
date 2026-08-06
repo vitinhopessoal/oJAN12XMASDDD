@@ -44,6 +44,8 @@ export function mapTransaction(record: RecordModel): Transaction {
 
 export function mapCommitment(record: RecordModel): Commitment {
   const installments = record["installments"];
+  const paid = record["paidMonths"];
+  const paidMonths = Array.isArray(paid) ? paid.map(String) : [];
   return {
     id: record["id"] as string,
     name: (record["name"] as string) ?? "",
@@ -51,6 +53,7 @@ export function mapCommitment(record: RecordModel): Commitment {
     value: Number(record["value"] ?? 0),
     startMonth: (record["startMonth"] as string) ?? "",
     recurrence: ((record["recurrence"] as Commitment["recurrence"]) ?? "FIXED"),
+    paidMonths,
     ...(installments ? { installments: Number(installments) } : {}),
     ...(record["category"] ? { categoryId: record["category"] as string } : {}),
   };
