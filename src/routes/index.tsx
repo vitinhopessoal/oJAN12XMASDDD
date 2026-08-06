@@ -1,12 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  ArrowDownCircle,
-  ArrowUpCircle,
-  CalendarClock,
-  Plus,
-  Wallet,
-} from "lucide-react";
+import { ArrowDownCircle, ArrowUpCircle, CalendarClock, Plus, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

@@ -1,12 +1,7 @@
 import { cn, formatDate } from "@/lib/utils";
 import { CurrencyText } from "@/components/ui/currency-text";
 import { CategoryIcon } from "@/components/ui/category-icon";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { BankAccount, Category, Transaction } from "@/types";
 
 interface TransactionItemProps {
