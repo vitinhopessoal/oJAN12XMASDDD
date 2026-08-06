@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 
 import { cn, formatCurrency, MONTHS_SHORT } from "@/lib/utils";
 import { useAppSettings } from "@/hooks/useAppSettings";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { Commitment } from "@/types";
 
 interface PlanningGridProps {
@@ -40,6 +40,7 @@ export function PlanningGrid({
     );
 
   return (
+    <TooltipProvider delayDuration={200}>
     <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-soft">
       <table className="w-full min-w-[860px] border-collapse text-xs sm:text-sm">
         <thead>
@@ -137,5 +138,6 @@ export function PlanningGrid({
         </tfoot>
       </table>
     </div>
+    </TooltipProvider>
   );
 }
