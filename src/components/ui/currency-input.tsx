@@ -23,7 +23,7 @@ function formatFromCents(cents: number): string {
 
 /** Input monetário pt-BR: o usuário digita dígitos e vê "1.250,50"; emite number. */
 export const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputProps>(
-  ({ value, onChange, className, ...props }, ref) => {
+  ({ value, onChange, className, inputClassName, ...props }, ref) => {
     const [text, setText] = React.useState(() => formatFromCents(Math.round(value * 100)));
 
     React.useEffect(() => {
@@ -50,7 +50,7 @@ export const CurrencyInput = React.forwardRef<HTMLInputElement, CurrencyInputPro
             {...props}
             ref={ref}
             inputMode="numeric"
-            className="money pl-9"
+            className={["money pl-9", inputClassName].filter(Boolean).join(" ")}
             value={text}
             onChange={handleChange}
           />
