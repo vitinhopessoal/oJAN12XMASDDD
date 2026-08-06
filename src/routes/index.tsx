@@ -96,7 +96,7 @@ function Dashboard() {
           : accounts.map((a) => <AccountCard key={a.id} account={a} />)}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryCard
           title="Receitas do mês"
           value={monthIncome}
@@ -123,6 +123,16 @@ function Dashboard() {
           icon={CalendarClock}
           tone="pending"
         />
+        <Link to="/investimentos" className="rounded-2xl transition hover:opacity-90">
+          <SummaryCard
+            title="Investido"
+            value={totalInvested}
+            subtitle={`${formatCurrency(contributedThisMonth)} aportado este mês`}
+            icon={TrendingUp}
+            tone="primary"
+            className="h-full"
+          />
+        </Link>
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
