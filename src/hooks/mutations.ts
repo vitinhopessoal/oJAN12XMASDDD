@@ -3,13 +3,21 @@ import { toast } from "sonner";
 
 import { pb } from "@/lib/pocketbase";
 
-export type CollectionName = "bank_accounts" | "categories" | "transactions" | "commitments";
+export type CollectionName =
+  | "bank_accounts"
+  | "categories"
+  | "transactions"
+  | "commitments"
+  | "investment_goals"
+  | "contributions";
 
 const QUERY_KEYS: Record<CollectionName, string[]> = {
   bank_accounts: ["accounts"],
   categories: ["categories"],
   transactions: ["transactions"],
   commitments: ["commitments"],
+  investment_goals: ["goals", "contributions"],
+  contributions: ["goals", "contributions"],
 };
 
 function useInvalidate(collection: CollectionName) {

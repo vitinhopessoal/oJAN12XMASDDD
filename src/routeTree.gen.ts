@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as ContasRouteImport } from './routes/contas'
+import { Route as InvestimentosRouteImport } from './routes/investimentos'
 import { Route as PlanejamentoRouteImport } from './routes/planejamento'
 import { Route as RelatoriosRouteImport } from './routes/relatorios'
 import { Route as TransacoesRouteImport } from './routes/transacoes'
@@ -29,6 +30,11 @@ const CategoriasRoute = CategoriasRouteImport.update({
 const ContasRoute = ContasRouteImport.update({
   id: '/contas',
   path: '/contas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvestimentosRoute = InvestimentosRouteImport.update({
+  id: '/investimentos',
+  path: '/investimentos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanejamentoRoute = PlanejamentoRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categorias': typeof CategoriasRoute
   '/contas': typeof ContasRoute
+  '/investimentos': typeof InvestimentosRoute
   '/planejamento': typeof PlanejamentoRoute
   '/relatorios': typeof RelatoriosRoute
   '/transacoes': typeof TransacoesRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categorias': typeof CategoriasRoute
   '/contas': typeof ContasRoute
+  '/investimentos': typeof InvestimentosRoute
   '/planejamento': typeof PlanejamentoRoute
   '/relatorios': typeof RelatoriosRoute
   '/transacoes': typeof TransacoesRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/categorias': typeof CategoriasRoute
   '/contas': typeof ContasRoute
+  '/investimentos': typeof InvestimentosRoute
   '/planejamento': typeof PlanejamentoRoute
   '/relatorios': typeof RelatoriosRoute
   '/transacoes': typeof TransacoesRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/categorias'
     | '/contas'
+    | '/investimentos'
     | '/planejamento'
     | '/relatorios'
     | '/transacoes'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/categorias'
     | '/contas'
+    | '/investimentos'
     | '/planejamento'
     | '/relatorios'
     | '/transacoes'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/categorias'
     | '/contas'
+    | '/investimentos'
     | '/planejamento'
     | '/relatorios'
     | '/transacoes'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriasRoute: typeof CategoriasRoute
   ContasRoute: typeof ContasRoute
+  InvestimentosRoute: typeof InvestimentosRoute
   PlanejamentoRoute: typeof PlanejamentoRoute
   RelatoriosRoute: typeof RelatoriosRoute
   TransacoesRoute: typeof TransacoesRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/contas'
       fullPath: '/contas'
       preLoaderRoute: typeof ContasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/investimentos': {
+      id: '/investimentos'
+      path: '/investimentos'
+      fullPath: '/investimentos'
+      preLoaderRoute: typeof InvestimentosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planejamento': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriasRoute: CategoriasRoute,
   ContasRoute: ContasRoute,
+  InvestimentosRoute: InvestimentosRoute,
   PlanejamentoRoute: PlanejamentoRoute,
   RelatoriosRoute: RelatoriosRoute,
   TransacoesRoute: TransacoesRoute,
@@ -166,13 +187,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

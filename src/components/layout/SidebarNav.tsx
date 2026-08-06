@@ -9,12 +9,14 @@ import {
   Moon,
   Sun,
   PiggyBank,
+  TrendingUp,
 } from "lucide-react";
 import { useAppSettings } from "@/hooks/useAppSettings";
 
 const nav = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/planejamento", label: "Planejamento", icon: CalendarRange },
+  { to: "/investimentos", label: "Investimentos", icon: TrendingUp },
   { to: "/transacoes", label: "Transações", icon: ArrowLeftRight },
   { to: "/contas", label: "Contas", icon: Landmark },
   { to: "/categorias", label: "Categorias", icon: Tags },

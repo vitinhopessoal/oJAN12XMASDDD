@@ -1,6 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowDownCircle, ArrowUpCircle, CalendarClock, Plus, Wallet } from "lucide-react";
+import {
+  ArrowDownCircle,
+  ArrowUpCircle,
+  CalendarClock,
+  Plus,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,6 +26,7 @@ import { useAccounts } from "@/hooks/useAccounts";
 import { useTransactions } from "@/hooks/useTransactions";
 import { useCategories } from "@/hooks/useCategories";
 import { useCommitments } from "@/hooks/useCommitments";
+import { useGoals } from "@/hooks/useGoals";
 import { formatCurrency, greeting } from "@/lib/utils";
 import type { MovementType } from "@/types";
 
@@ -57,6 +65,7 @@ function Dashboard() {
   } = useTransactions(monthKey);
   const { categories } = useCategories();
   const { currentMonthTotal, currentMonthOpen } = useCommitments(year);
+  const { totalInvested, contributedThisMonth } = useGoals();
 
   const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c]));
   const accountMap = Object.fromEntries(accounts.map((a) => [a.id, a]));
@@ -96,7 +105,7 @@ function Dashboard() {
           : accounts.map((a) => <AccountCard key={a.id} account={a} />)}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryCard
           title="Receitas do mês"
           value={monthIncome}
@@ -123,6 +132,16 @@ function Dashboard() {
           icon={CalendarClock}
           tone="pending"
         />
+        <Link to="/investimentos" className="rounded-2xl transition hover:opacity-90">
+          <SummaryCard
+            title="Investido"
+            value={totalInvested}
+            subtitle={`${formatCurrency(contributedThisMonth)} aportado este mês`}
+            icon={TrendingUp}
+            tone="primary"
+            className="h-full"
+          />
+        </Link>
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
