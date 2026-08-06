@@ -46,6 +46,8 @@ export function mapTransaction(record: RecordModel): Transaction {
     status: ((record["status"] as Transaction["status"]) ?? "PAID"),
     bankAccountId: (record["bankAccount"] as string) ?? "",
     categoryId: (record["category"] as string) ?? "",
+    needsReview: Boolean(record["needsReview"]),
+    ...(record["rawText"] ? { rawText: record["rawText"] as string } : {}),
   };
 }
 
