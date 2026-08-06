@@ -91,6 +91,20 @@ function Dashboard() {
         />
       </div>
 
+      {inboxCount > 0 ? (
+        <Link
+          to="/entrada"
+          className="flex items-center gap-3 rounded-2xl border border-pending/40 bg-pending-soft px-5 py-4 text-sm shadow-soft transition hover:opacity-90"
+        >
+          <Inbox className="h-5 w-5 shrink-0 text-pending" />
+          <span className="flex-1 font-medium">
+            Você tem {inboxCount} {inboxCount === 1 ? "compra aguardando" : "compras aguardando"}{" "}
+            revisão
+          </span>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        </Link>
+      ) : null}
+
       <div className="rounded-2xl border border-border bg-primary p-6 text-primary-foreground shadow-soft">
         <p className="text-sm opacity-80">Saldo total</p>
         <CurrencyText value={totalBalance} className="mt-2 block text-4xl font-semibold" />
