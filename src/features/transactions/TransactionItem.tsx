@@ -62,9 +62,9 @@ export function TransactionItem({
       </span>
 
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium">{transaction.name}</p>
+        <p className="truncate text-sm font-medium">{transaction.name || "Sem descrição"}</p>
         <p className="truncate text-xs text-muted-foreground">
-          {account?.name ?? "—"} · {category?.name ?? "Sem categoria"} ·{" "}
+          {account?.name ?? "Sem conta"} · {category?.name ?? "Sem categoria"} ·{" "}
           {formatDate(transaction.date)}
         </p>
       </div>

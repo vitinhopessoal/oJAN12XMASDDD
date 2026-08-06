@@ -13,7 +13,8 @@ async function fetchTransactions(month?: Date | string): Promise<Transaction[]> 
     options["filter"] = pb.filter("date >= {:start} && date <= {:end}", { start, end });
   }
   const records = await pb.collection("transactions").getFullList(options);
-  return records.map(mapTransaction);
+  // Transações capturadas automaticamente só entram depois de revisadas.
+  return records.map(mapTransaction).filter((t) => !t.needsReview);
 }
 
 export function useTransactions(month?: Date | string): {

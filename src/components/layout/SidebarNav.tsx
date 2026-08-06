@@ -10,10 +10,13 @@ import {
   Sun,
   PiggyBank,
   TrendingUp,
+  Inbox,
 } from "lucide-react";
 import { useAppSettings } from "@/hooks/useAppSettings";
+import { useInbox } from "@/hooks/useInbox";
 
 const nav = [
+  { to: "/entrada", label: "Caixa de entrada", icon: Inbox },
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/planejamento", label: "Planejamento", icon: CalendarRange },
   { to: "/investimentos", label: "Investimentos", icon: TrendingUp },
@@ -25,6 +28,8 @@ const nav = [
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const { theme, toggleTheme } = useAppSettings();
+  const { count } = useInbox();
+
 
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
@@ -48,7 +53,12 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent/60"
           >
             <item.icon className="h-4 w-4" />
-            {item.label}
+            <span className="flex-1">{item.label}</span>
+            {item.to === "/entrada" && count > 0 ? (
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">
+                {count}
+              </span>
+            ) : null}
           </Link>
         ))}
       </nav>

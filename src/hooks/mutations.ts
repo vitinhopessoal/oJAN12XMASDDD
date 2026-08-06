@@ -14,7 +14,7 @@ export type CollectionName =
 const QUERY_KEYS: Record<CollectionName, string[]> = {
   bank_accounts: ["accounts"],
   categories: ["categories"],
-  transactions: ["transactions"],
+  transactions: ["transactions", "inbox"],
   commitments: ["commitments"],
   investment_goals: ["goals", "contributions"],
   contributions: ["goals", "contributions"],
