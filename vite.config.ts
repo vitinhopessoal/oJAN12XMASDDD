@@ -13,5 +13,5 @@ export default defineConfig({
     server: { entry: "server" },
   },
   // Build para servidor Node self-hosted (Docker), em vez do target cloudflare.
-  nitro: { config: { preset: "node-server" } },
+  nitro: { preset: "node-server" },
 });
