@@ -164,7 +164,7 @@ export function TransactionFormDialog({
                       value={field.value}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
-                      className={cn("h-14 text-2xl font-semibold", accent)}
+                      inputClassName={cn("h-14 text-2xl font-semibold", accent)}
                     />
                   </FormControl>
                   <FormMessage />
