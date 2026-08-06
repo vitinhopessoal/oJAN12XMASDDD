@@ -1,6 +1,13 @@
 import PocketBase, { type RecordModel } from "pocketbase";
 
-import type { BankAccount, Category, Commitment, Transaction } from "@/types";
+import type {
+  BankAccount,
+  Category,
+  Commitment,
+  Contribution,
+  InvestmentGoal,
+  Transaction,
+} from "@/types";
 
 export const POCKETBASE_URL =
   (import.meta.env["VITE_POCKETBASE_URL"] as string | undefined) || "http://127.0.0.1:8090";
@@ -76,4 +83,26 @@ export function monthRange(month: Date | string): { start: string; end: string }
 export function monthKeyOf(month: Date | string): string {
   if (typeof month === "string") return month.slice(0, 7);
   return `${month.getFullYear()}-${String(month.getMonth() + 1).padStart(2, "0")}`;
+}
+
+export function mapGoal(record: RecordModel): InvestmentGoal {
+  return {
+    id: record["id"] as string,
+    name: (record["name"] as string) ?? "",
+    icon: (record["icon"] as string) ?? "target",
+    color: (record["color"] as string) ?? "#087F5B",
+    targetValue: Number(record["targetValue"] ?? 0),
+    monthlyPlan: Number(record["monthlyPlan"] ?? 0),
+    ...(record["deadline"] ? { deadline: record["deadline"] as string } : {}),
+  };
+}
+
+export function mapContribution(record: RecordModel): Contribution {
+  return {
+    id: record["id"] as string,
+    goalId: (record["goal"] as string) ?? "",
+    value: Number(record["value"] ?? 0),
+    date: (record["date"] as string) ?? "",
+    ...(record["note"] ? { note: record["note"] as string } : {}),
+  };
 }

@@ -41,3 +41,21 @@ export interface Commitment {
   /** Meses já pagos, no formato "YYYY-MM". */
   paidMonths?: string[];
 }
+
+export interface InvestmentGoal {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  targetValue: number;
+  monthlyPlan: number;
+  deadline?: string;
+}
+
+export interface Contribution {
+  id: string;
+  goalId: string;
+  value: number;
+  date: string;
+  note?: string;
+}
