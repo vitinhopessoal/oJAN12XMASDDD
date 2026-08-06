@@ -42,6 +42,11 @@ export const FINANCE_ICONS = [
   "circle-dollar-sign",
   "sparkles",
   "tag",
+  "shield",
+  "gem",
+  "umbrella",
+  "rocket",
+  "target",
   "circle",
 ];
 
