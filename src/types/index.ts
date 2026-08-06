@@ -38,4 +38,6 @@ export interface Commitment {
   recurrence: Recurrence;
   installments?: number;
   categoryId?: string;
+  /** Meses já pagos, no formato "YYYY-MM". */
+  paidMonths?: string[];
 }
