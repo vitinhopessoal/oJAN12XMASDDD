@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useHydrated } from "@tanstack/react-router";
 import { useState } from "react";
 import { PieChart } from "lucide-react";
 
@@ -27,12 +27,15 @@ export const Route = createFileRoute("/relatorios")({
       { name: "description", content: "Gráficos e análises de gastos por categoria e período." },
       { property: "og:title", content: "Relatórios — Meu Bolso" },
       { property: "og:description", content: "Entenda para onde vai o seu dinheiro." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ReportsPage,
 });
 
 function ReportsPage() {
+  const hydrated = useHydrated();
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
   const [monthIndex, setMonthIndex] = useState(today.getMonth());
@@ -72,7 +75,7 @@ function ReportsPage() {
         }
       />
 
-      {isLoading ? (
+      {!hydrated || isLoading ? (
         <div className="grid gap-4 lg:grid-cols-2">
           <Skeleton className="h-[340px] rounded-2xl" />
           <Skeleton className="h-[340px] rounded-2xl" />
