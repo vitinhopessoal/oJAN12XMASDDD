@@ -107,9 +107,7 @@ export function GoalFormDialog({ open, onOpenChange, goal, preset }: GoalFormDia
   }, [open, goal, preset, form]);
 
   const values = form.watch();
-  const [deadlineYear, deadlineMonth] = values.deadline
-    ? values.deadline.split("-")
-    : ["", ""];
+  const [deadlineYear, deadlineMonth] = values.deadline ? values.deadline.split("-") : ["", ""];
 
   let summary = "Informe o valor da meta e o aporte mensal para ver a projeção.";
   if (values.targetValue > 0 && values.monthlyPlan > 0) {
@@ -289,9 +287,7 @@ export function GoalFormDialog({ open, onOpenChange, goal, preset }: GoalFormDia
               )}
             />
 
-            <p className="rounded-xl bg-muted px-3 py-2 text-sm text-muted-foreground">
-              {summary}
-            </p>
+            <p className="rounded-xl bg-muted px-3 py-2 text-sm text-muted-foreground">{summary}</p>
 
             <div className="flex justify-end gap-2 pt-2">
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>

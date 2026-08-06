@@ -58,7 +58,10 @@ export function GoalHistorySheet({ stats, onOpenChange }: GoalHistorySheetProps)
   return (
     <>
       <Sheet open onOpenChange={onOpenChange}>
-        <SheetContent side="right" className="flex w-full flex-col gap-4 overflow-y-auto sm:max-w-md">
+        <SheetContent
+          side="right"
+          className="flex w-full flex-col gap-4 overflow-y-auto sm:max-w-md"
+        >
           <SheetHeader>
             <SheetTitle>{stats.goal.name}</SheetTitle>
             <SheetDescription>

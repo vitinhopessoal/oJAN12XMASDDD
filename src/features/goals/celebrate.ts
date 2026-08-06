@@ -19,8 +19,18 @@ export async function celebrate(): Promise<void> {
 }
 
 const MONTHS_ABBR = [
-  "jan", "fev", "mar", "abr", "mai", "jun",
-  "jul", "ago", "set", "out", "nov", "dez",
+  "jan",
+  "fev",
+  "mar",
+  "abr",
+  "mai",
+  "jun",
+  "jul",
+  "ago",
+  "set",
+  "out",
+  "nov",
+  "dez",
 ];
 
 export function monthAbbrLabel(date: Date): string {

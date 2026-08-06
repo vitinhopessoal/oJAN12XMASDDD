@@ -33,8 +33,7 @@ export const Route = createFileRoute("/investimentos")({
       { title: "Investimentos — Meu Bolso" },
       {
         name: "description",
-        content:
-          "Acompanhe suas metas de investimento, aportes mensais e projeções de conclusão.",
+        content: "Acompanhe suas metas de investimento, aportes mensais e projeções de conclusão.",
       },
       { property: "og:title", content: "Investimentos — Meu Bolso" },
       {
@@ -143,9 +142,7 @@ function InvestmentsPage() {
           <div>
             <p className="text-sm opacity-80">Total investido</p>
             <CurrencyText value={totalInvested} className="mt-1 block text-4xl font-semibold" />
-            <p className="mt-1 text-xs opacity-80">
-              de {formatCurrency(totalTargets)} em metas
-            </p>
+            <p className="mt-1 text-xs opacity-80">de {formatCurrency(totalTargets)} em metas</p>
             <Progress value={overallPct} className="mt-3 bg-primary-foreground/20" />
             {streak > 0 ? (
               <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs">
@@ -162,8 +159,7 @@ function InvestmentsPage() {
                 : `Aportes de ${monthLabel}`}
             </p>
             <p className="mt-1 text-sm opacity-90">
-              {formatCurrency(contributedThisMonth)} de {formatCurrency(plannedThisMonth)}{" "}
-              planejado
+              {formatCurrency(contributedThisMonth)} de {formatCurrency(plannedThisMonth)} planejado
             </p>
             <Progress value={monthPct} className="mt-3 bg-primary-foreground/20" />
           </div>

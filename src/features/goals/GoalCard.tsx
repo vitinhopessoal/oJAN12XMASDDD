@@ -19,13 +19,7 @@ interface GoalCardProps {
   onDelete: () => void;
 }
 
-export function GoalCard({
-  stats,
-  onContribute,
-  onOpenHistory,
-  onEdit,
-  onDelete,
-}: GoalCardProps) {
+export function GoalCard({ stats, onContribute, onOpenHistory, onEdit, onDelete }: GoalCardProps) {
   const [hover, setHover] = useState(false);
   const { goal, progressPct, investedTotal, remaining, completed, projectedDate } = stats;
 
@@ -79,9 +73,7 @@ export function GoalCard({
         <ProgressRing value={progressPct} color={goal.color} size={92} />
         <div className="min-w-0 flex-1">
           <CurrencyText value={investedTotal} className="block text-lg font-semibold" />
-          <p className="text-xs text-muted-foreground">
-            de {formatCurrency(goal.targetValue)}
-          </p>
+          <p className="text-xs text-muted-foreground">de {formatCurrency(goal.targetValue)}</p>
           <p className="mt-1 text-xs text-muted-foreground">
             {completed ? "meta atingida" : `faltam ${formatCurrency(remaining)}`}
           </p>
@@ -97,9 +89,7 @@ export function GoalCard({
                 <span
                   className={cn(
                     "flex h-6 w-6 items-center justify-center rounded-full transition",
-                    reached
-                      ? "bg-primary-soft text-primary"
-                      : "bg-muted text-muted-foreground/40",
+                    reached ? "bg-primary-soft text-primary" : "bg-muted text-muted-foreground/40",
                   )}
                 >
                   <Award className="h-3.5 w-3.5" />
