@@ -4,6 +4,8 @@ import {
   ArrowDownCircle,
   ArrowUpCircle,
   CalendarClock,
+  ChevronRight,
+  Inbox,
   Plus,
   TrendingUp,
   Wallet,
