@@ -26,3 +26,7 @@ http://SEU_IP:3080
 ```
 
 Para atualizar após mudar o código ou o IP do PocketBase: `docker compose up -d --build`.
+
+## PWA
+
+O app é instalável (adicionar à tela inicial). Navegadores só oferecem a instalação quando o site é servido via HTTPS (ou em `localhost`), então use um proxy com certificado (ex.: Caddy/Nginx) para instalar no celular.
