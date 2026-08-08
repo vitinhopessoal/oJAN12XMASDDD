@@ -56,8 +56,11 @@ export default defineConfig({
         runtimeCaching: [
           {
             // HTML sempre pela rede primeiro.
-            urlPattern: ({ request, sameOrigin }) =>
-              sameOrigin && request.mode === "navigate",
+            urlPattern: ({ request, sameOrigin, url }) =>
+              sameOrigin &&
+              request.mode === "navigate" &&
+              !url.pathname.startsWith("/api/") &&
+              !url.pathname.startsWith("/~oauth"),
             handler: "NetworkFirst",
             options: { cacheName: "html-navigations", networkTimeoutSeconds: 5 },
           },
