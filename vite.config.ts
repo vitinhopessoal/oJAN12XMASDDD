@@ -21,6 +21,8 @@ export default defineConfig({
       injectRegister: null,
       registerType: "autoUpdate",
       filename: "sw.js",
+      // O bundle do cliente vai para dist/client — o SW precisa ser servido de lá.
+      outDir: "dist/client",
       // Nada de service worker em desenvolvimento.
       devOptions: { enabled: false },
       manifest: {
